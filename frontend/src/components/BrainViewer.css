@@ -1,0 +1,464 @@
+/* --- LAYOUT ORIGINAL (Taille & Position restaurées) --- */
+.canvas-container {
+    width: 100%;
+    grid-column: 1 / span 3;
+    grid-row: 2;
+    height: 100%;
+    min-height: calc(100vh - 250px);
+
+    /* Thème Dark Pro */
+    background-color: #000; /* Noir pur pour le contraste avec le cerveau */
+    border: 1px solid var(--border-idle, #333);
+    border-radius: 12px;
+
+    /* IMPORTANT : Pas de transition sur la taille pour éviter l'effet de zoom */
+    position: relative;
+    box-sizing: border-box;
+    /* overflow: hidden;  <-- REMOVED to let mobile controls show if needed, or handled specifically */
+    overflow: hidden;
+    transition: grid-column 0.3s ease;
+    outline: none;
+}
+
+.canvas-options-overlay {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 500;
+}
+
+.canvas-container:focus,
+.canvas-container:focus-within {
+    outline: none;
+}
+
+.canvas-container canvas:focus {
+    outline: none;
+}
+
+/* When RegionHistory is visible (review mode), canvas takes 3/4 width (columns 2-3) */
+.canvas-and-scroll-container.review-mode .canvas-container {
+    grid-column: 2 / span 2;
+}
+
+/* On mobile, add margin-top for game info box space (navigation, practice, etc.) */
+.canvas-container.game-info-mobile {
+    margin-top: 220px;
+}
+
+.alternate-content-container {
+    grid-column: 2 / span 2;
+    grid-row: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 1fr;
+    
+    background: var(--bg-card, #1e1e1e);
+    border-radius: 12px;
+    border: 1px solid var(--border-idle, #333);
+}
+
+.canvas-and-scroll-container {
+    display: grid;
+    align-content: stretch;
+    grid-template-columns: min-content 1fr 1fr;
+    grid-template-rows: min-content 1fr auto;
+    align-items: stretch;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.canvas-and-scroll-container.review-mode {
+    grid-template-columns: 280px 1fr 1fr;
+}
+
+.canvas-and-scroll-container.review-mode.sidebar-expanded {
+    grid-template-columns: 420px 1fr 1fr;
+}
+
+.canvas-and-scroll-container.review-mode.sidebar-normal {
+    grid-template-columns: 280px 1fr 1fr;
+}
+
+.region-info-overlay {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 90%;
+    max-width: 320px;
+    max-height: 60vh;
+    overflow-y: auto;
+    background: rgba(20, 20, 20, 0.95);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-sizing: border-box;
+    z-index: 100;
+    pointer-events: auto;
+}
+
+@media (max-width: 768px) {
+    .region-info-overlay {
+        max-width: calc(100% - 32px);
+        max-height: 50vh;
+    }
+}
+
+.region-info-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.region-info-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0;
+    line-height: 1.3;
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+    padding-bottom: 8px;
+}
+
+.region-info-short {
+    font-size: 0.82rem;
+    color: #d1d5db;
+    margin: 0;
+    line-height: 1.6;
+    font-style: italic;
+}
+
+.region-info-long {
+    font-size: 0.8rem;
+    color: #9ca3af;
+    margin: 0;
+    line-height: 1.65;
+}
+
+.region-info-source {
+    font-size: 0.72rem;
+    color: #6b7280;
+    margin: 0;
+    padding-top: 8px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.button-container {
+    grid-column: 1 / span 3;
+    grid-row: 3;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    z-index: 10;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 16px;
+    transition: grid-column 0.3s ease;
+    min-height: auto;
+}
+
+/* When RegionHistory is visible (review mode), buttons resize with canvas */
+.canvas-and-scroll-container.review-mode .button-container {
+    grid-column: 2 / span 2;
+}
+
+/* --- MOBILE SPECIFIC --- */
+@media (min-width: 300px) and (max-width: 500px) {
+    .canvas-container {
+        height: 0;
+        width: 100%;
+        padding-bottom: 100%; /* Creates 1:1 aspect ratio */
+        position: relative;
+        margin: 0 auto;
+    }
+    
+    .canvas-container canvas,
+    .canvas-container > div {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+    
+    .button-container {
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .canvas-and-scroll-container {
+        display: flex; /* Changed grid to flex for mobile stack */
+        flex-direction: column;
+        height: auto;
+        min-height: 100%;
+    }
+
+    .canvas-container {
+        flex: 1; /* Take available space */
+        width: 100%;
+        min-height: 300px; /* Minimum height for mobile canvas */
+        height: auto;
+    }
+
+    .region-info-overlay {
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 50%;
+        translate: 0 50%;
+        max-width: calc(100% - 32px);
+    }
+}
+
+/* --- MOBILE CONTROLS (Scrollbar & Orientation) --- */
+.mobile-controls {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: row-reverse; /* Scrollbar on right, buttons next to it */
+    align-items: center;
+    gap: 15px;
+    z-index: 100; /* Ensure on top of canvas */
+    height: 80%; /* Height relative to container */
+}
+
+/* Orientation Buttons (Axial, Sagittal, Coronal) */
+.orientation-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.orientation-button {
+    background-color: rgba(30, 30, 30, 0.8);
+    color: #ccc;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+    transition: all 0.2s;
+}
+
+.orientation-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.orientation-button.active {
+    background-color: var(--accent, #4a90e2);
+    color: white;
+    border-color: var(--accent, #4a90e2);
+    box-shadow: 0 2px 8px rgba(74, 144, 226, 0.4);
+}
+
+/* Mobile Scrollbar */
+.mobile-scroll-bar {
+    position: relative;
+    width: 8px; /* Thin modern scrollbar */
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.1); /* Translucent track */
+    border-radius: 4px;
+    overflow: visible;
+}
+
+.mobile-scroll-thumb {
+    position: absolute;
+    left: -4px; /* Center on track (16px width - 8px track / 2) */
+    width: 16px;
+    height: 16px;
+    background-color: white;
+    border-radius: 50%; /* Circular thumb */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+    transform: translateY(-50%); /* Center vertically on point */
+    cursor: pointer;
+}
+
+/* --- BOUTONS ACTION (Desktop/General) --- */
+
+
+:root {
+    --bg-card: #262626; 
+    --bg-card-hover: #333333;
+}
+
+.guess-button {
+    background-color: #ffffff;
+    color: #1a1a1a;
+    font-size: 1rem;
+    font-weight: 300;
+    font-family: 'Open Sans', sans-serif;
+    padding: 12px 30px;
+    border-radius: 9999px;
+    cursor: pointer;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: background-color 0.2s;
+}
+.guess-button:hover:not(:disabled) {
+    background-color: #d1d5db;
+    color: #1a1a1a;
+}
+.guess-button:disabled {
+    background-color: #4a4a4a;
+    color: #777777;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Colored guess button states */
+.guess-button.correct {
+    background-color: #66bb6a;
+    color: #ffffff;
+}
+.guess-button.correct:hover:not(:disabled) {
+    background-color: #ffffff;
+    color: #1a1a1a;
+}
+
+.guess-button.incorrect {
+    background-color: #ef5350;
+    color: #ffffff;
+}
+.guess-button.incorrect:hover:not(:disabled) {
+    background-color: #ffffff;
+    color: #1a1a1a;
+}
+
+.return-button {
+    background-color: var(--bg-card-hover, #3d3d3d);
+    color: var(--text-sub, #d1d5db);
+    border: 1px solid var(--border-color, rgba(255,255,255,0.1));
+    font-size: 0.9rem;
+    font-weight: 300;
+    font-family: 'Open Sans', sans-serif;
+    padding: 10px 22px;
+    border-radius: 9999px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background-color 0.2s;
+    white-space: nowrap;
+}
+.return-button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+.return-button:not(:disabled):hover {
+    background-color: var(--text-main, #ffffff);
+    color: var(--bg-page, #1a1a1a);
+}
+
+.lock-button {
+    background-color: var(--bg-card-hover, #3d3d3d);
+    color: var(--text-sub, #d1d5db);
+    border: 1px solid var(--border-color, rgba(255,255,255,0.1));
+    font-size: 0.9rem;
+    font-weight: 300;
+    font-family: 'Open Sans', sans-serif;
+    padding: 10px 22px;
+    border-radius: 9999px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background-color 0.2s;
+    white-space: nowrap;
+}
+.lock-button:hover {
+    background-color: var(--text-main, #ffffff);
+    color: var(--bg-page, #1a1a1a);
+}
+.lock-button.locked {
+    background-color: #e8a020;
+    color: #1a1a1a;
+    border-color: transparent;
+}
+.lock-button.locked:hover {
+    background-color: #ffb733;
+    color: #1a1a1a;
+}
+
+/* --- HUD (Flat & Contrasté) --- */
+.score-progress-bar {
+    width: 100%; height: 6px; 
+    background-color: #404040; /* Gris moyen pour la barre vide */
+    border-radius: 3px;
+    margin: 0 0 10px 0; position: relative;
+}
+.score-progress-bar .w3-container {
+    height: 100%; background-color: #27ae60; /* Vert vif */
+    border-radius: 3px; font-size: 0;
+}
+.score-progress-bar::before, .score-progress-bar::after { display: none; }
+
+.progress-label {
+    position: absolute; top: -25px; color: #d1d5db; font-size: 0.8rem; transform: translateX(-50%); font-weight: 600;
+}
+
+/* Boutons Pill (overlay end-of-game) */
+.home-button, .restart-button, .eye-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 22px;
+    border-radius: 9999px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-size: 0.9rem;
+    font-weight: 300;
+    font-family: 'Open Sans', sans-serif;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.home-button {
+    background-color: var(--bg-card-hover, #3d3d3d);
+    color: var(--text-sub, #d1d5db);
+    border: 1px solid var(--border-color, rgba(255,255,255,0.1));
+}
+.home-button:hover {
+    background-color: var(--text-main, #ffffff);
+    color: var(--bg-page, #1a1a1a);
+    text-decoration: none;
+}
+
+.restart-button {
+    background-color: var(--bg-card-hover, #3d3d3d);
+    color: var(--text-sub, #d1d5db);
+    border: 1px solid var(--border-color, rgba(255,255,255,0.1));
+}
+.restart-button:hover {
+    background-color: var(--text-main, #ffffff);
+    color: var(--bg-page, #1a1a1a);
+}
+
+.eye-button {
+    background-color: var(--text-main, #ffffff);
+    color: var(--bg-page, #1a1a1a);
+    border: none;
+}
+.eye-button:hover {
+    background-color: var(--text-sub, #d1d5db);
+    color: var(--bg-page, #1a1a1a);
+}

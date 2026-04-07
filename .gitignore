@@ -1,0 +1,17 @@
+node_modules/*
+package-lock.json
+
+backend/database.db
+backend/config.json
+backend/*.crt
+backend/*.key
+backend/*.log
+
+frontend/config.json
+
+backend/node_modules
+frontend/node_modules
+**/.DS_Store
+
+.DS_Store
+.vscode/*

@@ -1,0 +1,313 @@
+.join-multiplayer-box {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.join-multiplayer-button {
+    background-color: var(--text-main);
+    color: var(--bg-page);
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 14px 32px;
+    border: none;
+    border-radius: 9999px;
+    cursor: pointer;
+    font-family: 'Open Sans', sans-serif;
+    transition: background-color 0.2s;
+}
+
+.join-multiplayer-button:hover {
+    background-color: var(--text-sub);
+}
+
+.multiplayer-suggest-login {
+    margin-top: 25px;
+}
+
+.waiting-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    text-align: center;
+    color: var(--text-main);
+    padding: 2rem;
+    width: 100%;
+}
+
+.waiting-content h3 {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    color: var(--text-main);
+    font-weight: 400;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.waiting-content p {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    color: var(--text-sub);
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+}
+
+.waiting-content ul {
+    width: 100%;
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: space-evenly;
+}
+
+.waiting-content li {
+    background: var(--bg-card);
+    border-radius: 9999px;
+    padding: 6px 18px;
+    font-size: 0.95rem;
+    color: var(--text-sub);
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+}
+
+.waiting-display {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.countdown-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    width: 100%;
+}
+
+.countdown-label {
+    font-size: 1rem;
+    font-weight: 300;
+    font-family: 'Open Sans', sans-serif;
+    color: var(--text-sub);
+    margin: 0;
+    letter-spacing: 0.03em;
+}
+
+.countdown-ring-container {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.countdown-ring-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    transform: rotate(90deg) scaleX(-1);
+}
+
+.countdown-ring-bg {
+    fill: none;
+    stroke: var(--bg-card);
+    stroke-width: 5;
+}
+
+.countdown-ring-progress {
+    fill: none;
+    stroke: var(--text-main);
+    stroke-width: 5;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.9s linear;
+}
+
+.countdown-number {
+    font-size: 3rem !important;
+    font-weight: 300 !important;
+    color: var(--text-main) !important;
+    font-family: 'Open Sans', sans-serif;
+    line-height: 1;
+    position: relative;
+    z-index: 1;
+}
+
+.countdown-players-box {
+    background: var(--bg-card);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 16px 24px;
+    max-width: 380px;
+    width: 100%;
+}
+
+.countdown-players-title {
+    font-size: 0.85rem;
+    font-weight: 400;
+    font-family: 'Open Sans', sans-serif;
+    color: var(--text-sub);
+    margin: 0 0 12px 0;
+    text-align: center;
+}
+
+.countdown-players-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.countdown-players-list li {
+    background: var(--bg-card-hover);
+    border-radius: 9999px;
+    padding: 4px 14px;
+    font-size: 0.85rem;
+    color: var(--text-main);
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+}
+
+.multiplayer-score-display {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--bg-card);
+    color: var(--text-main);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    z-index: 1000;
+    border: 1px solid var(--border-color);
+}
+
+.current-user-score {
+    padding: 15px 20px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 400;
+    font-family: 'Open Sans', sans-serif;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.current-user-score .position {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 5px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+}
+
+.score-divider {
+    height: 1px;
+    background: var(--border-color);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.all-scores {
+    opacity: 0;
+    visibility: hidden;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.maximum-score {
+    opacity: 0;
+    visibility: hidden;
+    overflow: hidden;
+    display: none;
+    transition: all 0.3s ease;
+}
+
+.multiplayer-score-display:hover .score-divider {
+    opacity: 1;
+    visibility: visible;
+}
+
+.multiplayer-score-display:hover .maximum-score {
+    opacity: 1;
+    visibility: visible;
+    display: inline;
+}
+
+.multiplayer-score-display:hover .all-scores {
+    padding: 15px;
+    opacity: 1;
+    visibility: visible;
+    max-height: 400px;
+}
+
+.standings-title {
+    margin: 0 0 12px 0;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-align: center;
+    font-weight: 700;
+    font-family: 'Open Sans', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.score-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.score-list::-webkit-scrollbar { width: 4px; }
+.score-list::-webkit-scrollbar-track { background: var(--bg-card); border-radius: 2px; }
+.score-list::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 2px; }
+.score-list::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+.score-item {
+    display: grid;
+    grid-template-columns: 30px 1fr auto;
+    gap: 10px;
+    align-items: center;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    transition: background-color 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.score-item.current-user {
+    background-color: var(--bg-card-hover);
+    border: 1px solid var(--border-color);
+}
+
+.score-item .position {
+    font-weight: 600;
+    color: var(--text-muted);
+    text-align: center;
+    font-size: 12px;
+}
+
+.score-item .username {
+    color: var(--text-main);
+    font-weight: 400;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.score-item .score {
+    color: var(--success-color, #4ade80);
+    font-weight: 600;
+    font-size: 13px;
+}

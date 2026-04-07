@@ -1,0 +1,32 @@
+/* Landing page specific styles for inline button components */
+/* These styles are minimal as the component uses inline styles */
+
+/* Brain viewer container on landing page */
+.landing-brain-container {
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* Ensure BrainViewer doesn't have excess margins */
+.landing-brain-container .game-info-box-header {
+    display: none;
+}
+
+.landing-brain-container .game-stats-box-header {
+    display: none;
+}
+
+/* Mobile-first responsive adjustments */
+@media (max-width: 1024px) {
+    /* Stack layout vertically on smaller screens */
+}
+
+@media (max-width: 768px) {
+    /* Hide brain viewer on mobile */
+}
+
+@media (max-width: 480px) {
+    /* Mobile adjustments */
+}

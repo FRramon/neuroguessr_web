@@ -1,0 +1,10 @@
+{
+    "recaptcha" : {
+        "activate": false
+    },
+    "activateAnonymousMode": true,
+    "customHeaderScript": "",
+    "cache": {
+        "verbosity": "normal"
+    }
+}
